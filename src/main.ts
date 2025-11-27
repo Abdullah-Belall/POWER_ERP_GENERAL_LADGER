@@ -24,10 +24,12 @@ async function bootstrap() {
           ) {
             const httpService = app.get(HttpService);
             const url = process.env.BASE_TENANTS_URL;
+            console.log('TENANTS_URL => ', url);
             if (!url) return callback(new Error('Not allowed by CORS'));
             const response = await lastValueFrom(
               httpService.get(url + `/api/tenants/allowed-origins`),
             );
+            console.log('response.data => ', response.data);
             cachedOrigins = response.data;
             lastFetched = now;
           }
